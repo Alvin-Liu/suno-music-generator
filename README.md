@@ -8,24 +8,22 @@ Suno Music Generator by [sunomusic.fun](https://sunomusic.fun)
 
 ## Quick Start
 
-1. clone project
+1. obtain the cookie of your app.suno.ai account
+
+Locate the request that contains the keyword "client?_clerk_js_version". Navigate to the Cookie section, hover your mouse over it, and copy the value of the Cookie.
+
+2. clone project
 
 ```shell
 git clone https://github.com/suno-music-generator.git
 ```
 
-2. install dependencies
+3. install dependencies
 
 ```shell
 cd suno-music-generator
 pnpm install
 ```
-
-3. init database
-
-create your database use [local postgres](https://wiki.postgresql.org/wiki/Homebrew) or [vercel-postgres](https://vercel.com/docs/storage/vercel-postgres) or [supabase](https://supabase.com/)
-
-create tables from sql at `data/install.sql`
 
 4. set environmental values
 
@@ -40,6 +38,8 @@ NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
 
 SUNO_COOKIE=""
 ```
+
+SUNO_COOKIE is the cookie value you obtained in the first step
 
 5. local development
 
