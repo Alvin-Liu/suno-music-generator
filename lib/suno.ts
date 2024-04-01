@@ -34,8 +34,6 @@ class Sono {
       method: 'GET',
     })
 
-    console.log('response =====> ', response, response?.response)
-
     const sid = response?.response?.last_active_session_id;
 
     if (!sid) {
@@ -57,15 +55,12 @@ class Sono {
       }
     );
 
-    console.log('response =====> ', response)
-
     this.token = response.jwt;
 
     return response.jwt;
   }
 
   public async getSongs(prompt: string) {
-    console.log('get songs =====> ', prompt, this.token)
     const response = await this.client(
       `${BASE_URL}/api/generate/v2/`, {
         method: 'POST',
@@ -81,8 +76,6 @@ class Sono {
       }
     );
 
-    console.log('get songs =====> ', response)
-
     const request_ids = response?.clips?.map?.((i: { id: string; }) => i.id);
 
     let startWait = Date.now();
@@ -95,7 +88,6 @@ class Sono {
 
       const song_info = await this.fetchSongsMetadata(request_ids);
 
-      console.log('song_info', song_info)
       if (!song_info) {
         console.log(".", { end: "", flush: true });
       } else {
@@ -121,8 +113,6 @@ class Sono {
           Authorization: `Bearer ${this.token}`,
         },
       });
-
-      console.log("waiting for response...", url, response);
 
       const data = Array.isArray(response) ? response : [response];
       this.currentData = data;
