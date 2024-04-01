@@ -15,12 +15,9 @@ export default function () {
             <a href="/" className="text-xl font-medium flex items-center">
               <img
                 src="/logo.png"
-                className="w-10 h-10 rounded-full mr-3"
+                className="w-39 h-20"
                 alt="Suno Music"
               />
-              <span className="hidden md:block font-bold text-primary text-2xl">
-                Suno Music
-              </span>
             </a>
 
             <div className="flex flex-row items-center lg:flex lg:flex-row lg:space-x-3 lg:space-y-0">
