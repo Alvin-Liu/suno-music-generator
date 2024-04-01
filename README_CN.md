@@ -4,32 +4,32 @@
 
 [English](./README.md) | [简体中文](./README_CN.md)
 
-This is an unofficial development based on NextJS [suno.ai](https://www.suno.ai) Music generation website. A song, lyrics, etc. can be generated through the prompt input by the user. At the same time, it has built-in token update and preservation functions, so there is no need to worry about token expiration.
+这是一个基于 NextJS 开发的非官方 [suno.ai](https://www.suno.ai) 音乐生成网站。可以通过用户输入的 prompt 生成一首歌曲、歌词等。同时，内置了 token 更新和保活功能，无需担心 token 过期。
 
 ## Live Demo
 
 [https://sunomusic.fun](https://sunomusic.fun)
 
-## Quick Start
+## 快速开始
 
-1. obtain the cookie of your app.suno.ai account
+1. 获取 app.suno.ai 账户的 cookie 
 
-Locate the request that contains the keyword "client?_clerk_js_version". Navigate to the Cookie section, hover your mouse over it, and copy the value of the Cookie.
+找到包含关键词 "client?_clerk_js_version" 的请求。找到请求的 Cookie 部分，并复制 Cookie 的值
 
-2. clone project
+2. 克隆项目
 
 ```shell
 git clone https://github.com/Alvin-Liu/suno-music-generator.git
 ```
 
-3. install dependencies
+3. 安装依赖
 
 ```shell
 cd suno-music-generator
 pnpm install
 ```
 
-4. set environmental values
+4. 设置环境变量
 
 put `.env.local` under `suno-music-generator` root dir with values list below
 
@@ -43,17 +43,17 @@ NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
 SUNO_COOKIE=""
 ```
 
-SUNO_COOKIE is the cookie value you obtained in the first step
+SUNO_COOKIE 是你第一步获取的 cookie 值
 
-5. local development
+5. 本地开发
 
 ```shell
 pnpm dev
 ```
 
-open `http://localhost:3000` for preview
+打开预览：`http://localhost:3000` 
 
-## Credit to
+## 致谢
 
 - [Suno AI](https://www.suno.ai)
 - [nextjs](https://nextjs.org/docs)
@@ -61,10 +61,11 @@ open `http://localhost:3000` for preview
 - [node-postgres](https://node-postgres.com/)
 - [tailwindcss](https://tailwindcss.com/)
 
-## Other Things
+## 其他
 
-You can contact me via the following Twitter link: https://twitter.com/Alvin_Liu_9527. As a newcomer, I sincerely ask for your attention and follow.
+你可以通过以下 Twitter 链接与我联系：
+https://twitter.com/Alvin_Liu_9527。作为 Twitter 新人，我非常真诚地请求你的关注和支持。
 
-If this project is helpful to you, please consider buying me a coffee. 
+如果此项目对你有所帮助，请考虑请我喝杯咖啡
 
 <a href="https://www.buymeacoffee.com/vnorange" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="40" width="174"></a>
