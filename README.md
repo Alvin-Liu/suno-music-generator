@@ -1,6 +1,8 @@
-# Suno Music Generator
+<p align="center">
+  <img alt="Suno Music Generator" src="https://github.com/Alvin-Liu/suno-music-generator/blob/master/public/logo.png" width="200" style="margin-bottom: 10px;">
+</p>
 
-![Suno Music Generator](https://github.com/Alvin-Liu/suno-music-generator/blob/master/public/logo.png)
+# Suno Music Generator
 
 [English](./README.md) | [简体中文](./README_CN.md)
 
