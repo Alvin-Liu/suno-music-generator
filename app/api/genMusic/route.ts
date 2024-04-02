@@ -21,8 +21,13 @@ export async function POST(req: Request) {
 
     return respData(result);
   } catch (e: any) {
-    if (e?.detail === "Insufficient credits.") {
+    // Service Unavailable: Due to heavy usage, generations are temporarily only enabled for subscribers.
+    if (e?.detail === "Insufficient credits." || e?.detail === "Service Unavailable") {
       return respErr("Sorry, credits not enough");
+    }
+
+    if (e?.detail) {
+      return respErr(e.detail);
     }
 
     console.log("Generate music failed: ", e);
