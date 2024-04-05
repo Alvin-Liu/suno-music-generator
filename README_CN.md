@@ -43,6 +43,16 @@ NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
 NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
 
 SUNO_COOKIE=""
+
+LEMON_SQUEEZY_HOST=https://api.lemonsqueezy.com/v1
+LEMON_SQUEEZY_API_KEY=
+LEMON_SQUEEZY_STORE_ID=
+LEMON_SQUEEZY_PRODUCT_ID=
+LEMON_SQUEEZY_MEMBERSHIP_MONTHLY_VARIANT_ID=
+LEMON_SQUEEZY_MEMBERSHIP_SINGLE_TIME_VARIANT_ID=
+LEMONS_SQUEEZY_SIGNATURE_SECRET=
+
+POSTGRES_URL=
 ```
 
 SUNO_COOKIE 是你第一步获取的 cookie 值
@@ -62,6 +72,7 @@ pnpm dev
 - [clerk](https://clerk.com/docs/quickstarts/nextjs)
 - [node-postgres](https://node-postgres.com/)
 - [tailwindcss](https://tailwindcss.com/)
+- [Lemon Squeezy](https://www.lemonsqueezy.com/)
 
 ## 其他
 
