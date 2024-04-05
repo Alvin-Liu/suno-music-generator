@@ -4,6 +4,16 @@ import { useContext } from "react";
 import User from "@/components/user";
 import Social from "../social";
 
+export interface Tab {
+  title: string;
+  name?: string;
+  url?: string;
+}
+
+const navigations: Tab[] = [
+  { name: "pricing", title: "Pricing", url: "/pricing" },
+];
+
 export default function () {
   const { user } = useContext(AppContext);
 
@@ -19,6 +29,18 @@ export default function () {
                 alt="Suno Music"
               />
             </a>
+
+            <div className="hidden md:flex ml-16 flex-1">
+              {navigations.map((tab: Tab, idx: number) => (
+                <a
+                  key={idx}
+                  href={tab.url}
+                  className="text-md font-medium leading-6 text-gray-900"
+                >
+                  {tab.title}
+                </a>
+              ))}
+            </div>
 
             <div className="flex flex-row items-center lg:flex lg:flex-row lg:space-x-3 lg:space-y-0">
               <div className="hidden md:block mr-4">

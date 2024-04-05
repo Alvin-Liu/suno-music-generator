@@ -1,6 +1,10 @@
 import { respData, respErr } from "@/utils/response";
 import { currentUser } from "@clerk/nextjs";
 import { getSunoClient } from "@/lib/suno";
+import { getUserCredits } from "@/services/order";
+import { insertMusic } from "@/models/music";
+
+import type { SunoMusic } from "@/types/music";
 
 export async function POST(req: Request) {
   const user = await currentUser();
@@ -9,6 +13,13 @@ export async function POST(req: Request) {
   }
 
   try {
+    const userEmail = user.emailAddresses[0].emailAddress;
+    const userCredits = await getUserCredits(userEmail);
+
+    if (!userCredits || userCredits.left_credits < 1) {
+      return respErr("Sorry, credits not enough");
+    }
+
     const client = await getSunoClient();
 
     const { description } = await req.json();
@@ -19,11 +30,30 @@ export async function POST(req: Request) {
 
     const result = await client.getSongs(description)
 
-    return respData(result);
+    const music: SunoMusic = {
+      user_email: userEmail,
+      description: description,
+      // style: style,
+      // instrumental: instrumental,
+      lyric: result?.lyric,
+      song_name: result?.song_name,
+      created_at: new Date().toISOString(),
+      status: 1,
+      song_url: `https://cdn1.suno.ai/${result?.song_ids?.[0]}.mp3`,
+      song_url2: `https://cdn1.suno.ai/${result?.song_ids?.[1]}.mp3`,
+    };
+    
+    insertMusic(music);
+
+    return respData({
+      ...result,
+      song_url: result?.song_ids?.[0] && `https://audiopipe.suno.ai/?item_id=${result.song_ids[0]}`,
+      song_url2: result?.song_ids?.[1] && `https://audiopipe.suno.ai/?item_id=${result.song_ids[1]}`,
+    });
   } catch (e: any) {
     // Service Unavailable: Due to heavy usage, generations are temporarily only enabled for subscribers.
     if (e?.detail === "Insufficient credits." || e?.detail === "Service Unavailable") {
-      return respErr("Sorry, credits not enough");
+      return respErr("Sorry for the service error, please try again later");
     }
 
     if (e?.detail) {

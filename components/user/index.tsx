@@ -19,23 +19,34 @@ interface Props {
 
 export default function ({ user }: Props) {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Avatar className="cursor-pointer">
-          <AvatarImage src={user.avatar_url} alt={user.nickname} />
-          <AvatarFallback>{user.nickname}</AvatarFallback>
-        </Avatar>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="mx-4">
-        <DropdownMenuLabel className="text-center truncate">
-          {user.nickname ? user.nickname : user.email}
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
+    <>
+      {user.credits && (
+        <div className="hidden md:block mr-8 font-medium cursor-pointer">
+          credits:{" "}
+          <span className="text-primary">
+            {user.credits.left_credits}
+          </span>
+        </div>
+      )}
 
-        <DropdownMenuCheckboxItem>
-          <SignOutButton signOutCallback={() => location.reload()} />
-        </DropdownMenuCheckboxItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Avatar className="cursor-pointer">
+            <AvatarImage src={user.avatar_url} alt={user.nickname} />
+            <AvatarFallback>{user.nickname}</AvatarFallback>
+          </Avatar>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="mx-4">
+          <DropdownMenuLabel className="text-center truncate">
+            {user.nickname ? user.nickname : user.email}
+          </DropdownMenuLabel>
+          <DropdownMenuSeparator />
+
+          <DropdownMenuCheckboxItem>
+            <SignOutButton signOutCallback={() => location.reload()} />
+          </DropdownMenuCheckboxItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
   );
 }

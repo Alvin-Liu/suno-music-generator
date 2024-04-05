@@ -17,7 +17,7 @@ export const fetchEnhanced = (input: string, options?: Options): Promise<any> =>
     body: JSON.stringify(options?.data || options?.body),
     credentials: 'include',
   }).then(async (res) => {
-    if (res.status !== 200) {
+    if (res.status < 200 || res.status >= 300) {
       return Promise.reject(await res.json())
     }
 

@@ -2,6 +2,8 @@ import { respData, respErr } from "@/utils/response";
 
 import { User } from "@/types/user";
 import { currentUser } from "@clerk/nextjs";
+import { getUserCredits } from "@/services/order";
+import { saveUser } from "@/services/user";
 
 export async function POST(req: Request) {
   const user = await currentUser();
@@ -18,6 +20,11 @@ export async function POST(req: Request) {
       nickname: nickname || "",
       avatar_url: avatarUrl,
     };
+
+    await saveUser(userInfo);
+
+    const user_credits = await getUserCredits(email);
+    userInfo.credits = user_credits;
 
     return respData(userInfo);
   } catch (e) {

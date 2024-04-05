@@ -28,7 +28,7 @@ export default function () {
                     {music.song_name}
                   </h5>
                   <p className="block font-sans text-base font-light leading-relaxed text-inherit antialiased max-h-40 verscroll-y-auto overflow-y-scroll" dangerouslySetInnerHTML={{
-                    __html: music.lyric?.replaceAll("\n", "<br/>") ?? ''
+                    __html: music.lyric?.replace?.(/\n{1,2}/g, "<br>") ?? ''
                   }} />
                 </div>
               </div>

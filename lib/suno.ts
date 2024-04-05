@@ -9,7 +9,7 @@ const CLERK_BASE_URL = 'https://clerk.suno.ai';
 
 class Sono {
   private retryTime = 0;
-  private songInfo: Music = {};
+  private songInfo: Pick<Music, 'lyric' | 'song_name'> & { song_ids?: string[]; } = {};
   private currentData?: Record<string, any>;
   private sid?: string;
   private token?: string;
@@ -123,7 +123,7 @@ class Sono {
 
           this.songInfo.song_name = song_name;
           this.songInfo.lyric = lyric;
-          this.songInfo.song_url = d.audio_url;
+          this.songInfo.song_ids = [id1, id2];
 
           return true;
         }
@@ -140,7 +140,7 @@ class Sono {
 
           this.songInfo.song_name = song_name;
           this.songInfo.lyric = lyric;
-          this.songInfo.song_url = `https://audiopipe.suno.ai/?item_id=${id1}`;
+          this.songInfo.song_ids = [id1, id2];
 
           console.log("will sleep 45 and try to download");
 
@@ -162,7 +162,7 @@ class Sono {
 
         this.songInfo.song_name = song_name;
         this.songInfo.lyric = lyric;
-        this.songInfo.song_url = `https://audiopipe.suno.ai/?item_id=${id1}`;
+        this.songInfo.song_ids = [id1, id2];
 
         return true;
       }
