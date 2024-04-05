@@ -21,3 +21,12 @@ export interface SunoMusic extends SunoMusicParams, Music {
   created_at: string;
   status?: number;
 }
+
+export interface SunoMusicType {
+  audio_url: string;
+  created_at: string;
+  id: string;
+  image_large_url: string;
+  image_url: string;
+  title: string;
+}

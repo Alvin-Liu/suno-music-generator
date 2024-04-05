@@ -3,10 +3,14 @@ import { currentUser } from "@clerk/nextjs";
 import { getSunoClient } from "@/lib/suno";
 import { getUserCredits } from "@/services/order";
 import { insertMusic } from "@/models/music";
+import { headers } from "next/headers";
 
 import type { SunoMusic } from "@/types/music";
 
 export async function POST(req: Request) {
+  const headersList = headers();
+  const userAgent = headersList.get("User-Agent");
+
   const user = await currentUser();
   if (!user || !user.emailAddresses || user.emailAddresses.length === 0) {
     return respErr("Please Log In First");
@@ -20,7 +24,7 @@ export async function POST(req: Request) {
       return respErr("Sorry, credits not enough");
     }
 
-    const client = await getSunoClient();
+    const client = await getSunoClient({ userAgent: userAgent || "" });
 
     const { description } = await req.json();
 

@@ -15,14 +15,14 @@ class Sono {
   private token?: string;
   private readonly client: typeof fetchEnhanced;
 
-  constructor(cookie: string) {
+  constructor(cookie: string, { userAgent }: { userAgent?: string }) {
     this.client = (url: string, options: any) => {
       return fetchEnhanced(url, {
         ...options,
         headers: {
           "Cookie": cookie,
           "Accept-Encoding": "gzip, deflate, br",
-          "User-Agent": new UserAgent(/Chrome/).random().toString(),
+          "User-Agent": userAgent || new UserAgent(/Chrome/).random().toString(),
           ...options.headers,
         }
       });
@@ -41,7 +41,8 @@ class Sono {
     }
 
     this.sid = sid;
-    await this.getAuthToken();
+
+    return await this.getAuthToken();
   }
 
   private async getAuthToken() {
@@ -191,14 +192,14 @@ class Sono {
   }
 }
 
-export const getSunoClient = async (cookie?: string) => {
+export const getSunoClient = async ({ cookie, userAgent }: { cookie?: string; userAgent?: string }) => {
   const sunoCookie = process.env.SUNO_COOKIE || cookie;
 
   if (!sunoCookie) {
     throw new Error("Cookie not found");
   }
 
-  const client = new Sono(sunoCookie);
+  const client = new Sono(sunoCookie, { userAgent });
 
   await client.init();
 

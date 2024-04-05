@@ -11,6 +11,8 @@ export interface Tab {
 }
 
 const navigations: Tab[] = [
+  { name: "home", title: "Home", url: "/" },
+  { name: "explore", title: "Explore", url: "/explore" },
   { name: "pricing", title: "Pricing", url: "/pricing" },
 ];
 
@@ -30,7 +32,7 @@ export default function () {
               />
             </a>
 
-            <div className="hidden md:flex ml-16 flex-1">
+            <div className="hidden md:flex ml-16 flex-1 gap-x-10">
               {navigations.map((tab: Tab, idx: number) => (
                 <a
                   key={idx}

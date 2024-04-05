@@ -1,4 +1,4 @@
-const respJson = (code: number, message: string, data?: any) => {
+export const respJson = (code: number | string, message: string, data?: any) => {
   return Response.json({
     code: code,
     message: message,
