@@ -11,15 +11,15 @@ export const insertMusic = async (music: SunoMusic) => {
     `,
     [
       music.user_email,
-      music.description,
-      music.style,
-      music.instrumental,
-      music.lyric,
-      music.song_name,
-      music.song_url,
-      music.song_url2,
+      music.description || '',
+      music.style || '',
+      music.instrumental ? '1' : '0',
+      music.lyric || '',
+      music.song_name || '',
+      music.song_url || '',
+      music.song_url2 || '',
       music.created_at,
-      music.status,
+      `${music.status || '0'}`
     ]
   );
 

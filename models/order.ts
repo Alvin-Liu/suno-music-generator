@@ -32,11 +32,11 @@ export const insertOrder = async (order: Order) => {
       order.order_no,
       order.created_at,
       order.user_email,
-      order.amount,
+      `${order.amount || 0}`,
       order.plan,
       order.expired_at,
-      order.order_status,
-      order.credits,
+      `${order.order_status || 0}`,
+      `${order.credits || 0}`,
     ]
   );
 
@@ -71,7 +71,7 @@ export const updateOrderStatus = async (
   const db = getDb();
   const res = await db.query(
     `UPDATE orders SET order_status=$2, paied_at=$3, paid_order_id=$4 WHERE order_no=$1`,
-    [order_no, order_status, paied_at, paid_order_id]
+    [order_no, `${order_status || 0}`, paied_at, paid_order_id]
   );
 
   return res;

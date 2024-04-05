@@ -11,12 +11,12 @@ CREATE TABLE music (
     user_email VARCHAR(255) NOT NULL,
     description TEXT,
     style VARCHAR(255),
-    instrumental INT,
+    instrumental SMALLINT,
     lyric TEXT,
     song_name TEXT,
     song_url TEXT,
     created_at timestamptz,
-    status INT
+    status SMALLINT,
 );
 
 CREATE TABLE orders (
