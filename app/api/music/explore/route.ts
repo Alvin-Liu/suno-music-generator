@@ -23,7 +23,8 @@ export async function GET() {
       }
     ));
 
-    return respData(list);
+    // random sort
+    return respData(list.sort(() => 0.5 - Math.random()));
   } catch (error: any) {
     console.error("Request failed:", error);
     if (error?.detail === 'Unauthorized') {
