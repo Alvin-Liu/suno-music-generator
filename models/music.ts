@@ -7,7 +7,7 @@ export const insertMusic = async (music: SunoMusic) => {
     `INSERT INTO music 
         (user_email, description, style, instrumental, lyric, song_name, song_url, song_url2, created_at, status) 
         VALUES 
-        ($1, $2, $3, $4, $5, $6, $7, $8)
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
     `,
     [
       music.user_email,
