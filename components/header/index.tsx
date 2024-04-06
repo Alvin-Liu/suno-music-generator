@@ -2,6 +2,8 @@ import { AppContext } from "@/contexts/AppContext";
 import { Button } from "@/components/ui/button";
 import { useContext } from "react";
 import User from "@/components/user";
+import { usePathname } from "next/navigation";
+import { cs } from "@/utils";
 import Social from "../social";
 
 export interface Tab {
@@ -19,6 +21,7 @@ const navigations: Tab[] = [
 
 export default function () {
   const { user } = useContext(AppContext);
+  const pathname = usePathname()
 
   return (
     <header>
@@ -38,7 +41,9 @@ export default function () {
                 <a
                   key={idx}
                   href={tab.url}
-                  className="text-md font-medium leading-6 text-gray-900"
+                  className={cs("text-md font-medium leading-6 text-gray-900", {
+                    "text-primary": pathname === tab.url,
+                  })}
                 >
                   {tab.title}
                 </a>
