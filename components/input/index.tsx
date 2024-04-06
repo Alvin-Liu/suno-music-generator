@@ -117,7 +117,7 @@ export default function ({ setMusic }: Props) {
       </div>
       
       <Button className="w-full mt-4" type="button" disabled={loading} onClick={onSubmit}>
-        {loading ? "Generating..." : "Generate"}
+        {user ? (loading ? "Generating..." : "Generate") : "Available after logging in"}
       </Button>
     </form>
   );
