@@ -6,11 +6,19 @@
 
 [English](./README.md) | [简体中文](./README_CN.md)
 
-这是一个基于 NextJS 开发的非官方 [suno.ai](https://www.suno.ai) 音乐生成网站。可以通过用户输入的 prompt 生成一首歌曲、歌词等。同时，内置了 token 更新和保活功能，无需担心 token 过期。
+这是一个基于 NextJS 开发的非官方 [suno.ai](https://www.suno.ai) 音乐生成网站。可以通过用户输入的 prompt 在一分钟左右的时间生成你想要的歌曲。
 
 ## Live Demo
 
 [https://sunomusic.fun](https://sunomusic.fun)
+
+## 工作原理
+
+通过 JavaScript 逆向工程解析 suno.ai 生成歌曲的 API，并使用 [Lemon Squeezy](https://www.lemonsqueezy.com/) 进行支付。同时，项目内置了 token 更新和保活功能，无需担心 token 过期。
+
+## 一键部署
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/Alvin-Liu/suno-music-generator)
 
 ## 快速开始
 
@@ -31,9 +39,16 @@ cd suno-music-generator
 pnpm install
 ```
 
-4. 设置环境变量
+4. 初始化数据库
 
-put `.env.local` under `suno-music-generator` root dir with values list below
+使用本地数据库： [local postgres](https://wiki.postgresql.org/wiki/Homebrew)
+或者使用在线数据库： [vercel-postgres](https://vercel.com/docs/storage/vercel-postgres)
+
+在 `data/install.sql` 文件中复制创建数据库用到的 sql
+
+5. 设置环境变量
+
+在项目跟目录添加 `.env.local` 文件，填入如下配置：
 
 ```
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=""
@@ -57,7 +72,7 @@ POSTGRES_URL=
 
 SUNO_COOKIE 是你第一步获取的 cookie 值
 
-5. 本地开发
+6. 本地开发
 
 ```shell
 pnpm dev

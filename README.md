@@ -6,7 +6,9 @@
 
 [English](./README.md) | [简体中文](./README_CN.md)
 
-This is an unofficial development based on NextJS [suno.ai](https://www.suno.ai) Music generation website. A song, lyrics, etc. can be generated through the prompt input by the user. At the same time, it has built-in token update and preservation functions, so there is no need to worry about token expiration.
+This is an unofficial music generation website developed based on NextJS for [suno.ai](https://www.suno.ai). It can generate the desired song within approximately one minute based on the prompt entered by the user.
+
+The project utilizes JavaScript reverse engineering to analyze the API used by suno.ai to generate songs. Payments are processed through Lemon Squeezy. Additionally, the project incorporates token renewal and maintenance functionality to eliminate the need for concerns about token expiration.
 
 ## Live Demo
 
@@ -31,7 +33,13 @@ cd suno-music-generator
 pnpm install
 ```
 
-4. set environmental values
+4. init database
+
+create your database use [local postgres](https://wiki.postgresql.org/wiki/Homebrew) or [vercel-postgres](https://vercel.com/docs/storage/vercel-postgres)
+
+create tables from sql at `data/install.sql`
+
+5. set environmental values
 
 put `.env.local` under `suno-music-generator` root dir with values list below
 
@@ -57,7 +65,7 @@ POSTGRES_URL=
 
 SUNO_COOKIE is the cookie value you obtained in the first step
 
-5. local development
+6. local development
 
 ```shell
 pnpm dev
