@@ -107,12 +107,17 @@ export default function ({ setMusic }: Props) {
       setLoading(false);
     },
     onError: async (error: any) => {
-      if (error === 'BIZ_UNAUTHORIZED' || error?.code === 'BIZ_UNAUTHORIZED') {
+      if (error === 'BIZ_UNAUTHORIZED') {
         getToken()
         return
       }
 
-      toast.error("Gen music failed");
+      if (error?.code === 'BIZ_MODERATION_FAILURE') {
+        toast.error("Sorry, prompt likely copyrighted");
+      } else {
+        toast.error("Gen music failed");
+      }
+      
       setLoading(false);
     }
   });

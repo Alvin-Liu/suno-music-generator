@@ -52,9 +52,13 @@ export async function POST(req: Request) {
       }
     ));
 
-    const data = (Array.isArray(response) ? response : [response]).filter((item) => !!item?.audio_url);
+    const data = Array.isArray(response) ? response : [response];
 
-    if (data && data.length > 0) {
+    if (data.some(item => item.status === 'error')) {
+      return respJson('BIZ_MODERATION_FAILURE', data?.[0]?.metadata?.error_message || "Sorry, prompt likely copyrighted");
+    }
+    
+    if (data.every((item) => !!item?.audio_url)) {
       const result = data.map((item) => {
         const [song_name, lyric] = client.parseLyrics(item);
 
