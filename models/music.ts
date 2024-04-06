@@ -57,3 +57,17 @@ export const getUserMusicCount = async (
 
   return row.count;
 }
+
+export const findMusicList = async (user_email: string): Promise<SunoMusic[]> => {
+  const db = getDb();
+  const res = await db.query(
+    `SELECT * FROM music WHERE user_email = $1`,
+    [user_email]
+  );
+
+  if (res.rowCount === 0) {
+    return [];
+  }
+
+  return res.rows;
+}

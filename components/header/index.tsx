@@ -14,6 +14,7 @@ const navigations: Tab[] = [
   { name: "home", title: "Home", url: "/" },
   { name: "explore", title: "Explore", url: "/explore" },
   { name: "pricing", title: "Pricing", url: "/pricing" },
+  { name: "personal", title: "Personal", url: "/personal" },
 ];
 
 export default function () {
