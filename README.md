@@ -14,6 +14,10 @@ The project utilizes JavaScript reverse engineering to analyze the API used by s
 
 [https://sunomusic.fun](https://sunomusic.fun)
 
+## One-click Deployment
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/Alvin-Liu/suno-music-generator)
+
 ## Quick Start
 
 1. obtain the cookie of your app.suno.ai account
