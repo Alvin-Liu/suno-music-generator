@@ -15,7 +15,6 @@ CREATE TABLE music (
     lyric TEXT,
     song_name TEXT,
     song_url TEXT,
-    song_url2 TEXT,
     created_at timestamptz,
     status SMALLINT,
 );

@@ -71,8 +71,7 @@ export async function POST(req: Request) {
           song_name: song_name,
           created_at: new Date().toISOString(),
           status: 1,
-          song_url: `https://cdn1.suno.ai/${item.id}.mp3`,
-          song_url2: ''
+          song_url: `https://cdn1.suno.ai/${item.id}.mp3`
         };
         
         insertMusic(music);
@@ -81,7 +80,6 @@ export async function POST(req: Request) {
           song_name,
           lyric,
           song_url: item.audio_url,
-          song_url2: ''
         }
       })
 

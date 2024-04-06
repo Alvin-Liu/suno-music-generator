@@ -5,9 +5,9 @@ export const insertMusic = async (music: SunoMusic) => {
   const db = getDb();
   const res = await db.query(
     `INSERT INTO music 
-        (user_email, description, style, instrumental, lyric, song_name, song_url, song_url2, created_at, status) 
+        (user_email, description, style, instrumental, lyric, song_name, song_url, created_at, status) 
         VALUES 
-        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9)
     `,
     [
       music.user_email,
@@ -17,7 +17,6 @@ export const insertMusic = async (music: SunoMusic) => {
       music.lyric || '',
       music.song_name || '',
       music.song_url || '',
-      music.song_url2 || '',
       music.created_at,
       `${music.status || '0'}`
     ]

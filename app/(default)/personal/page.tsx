@@ -10,6 +10,7 @@ const regex = /\/([^.]*)\.mp3/;
 
 export interface SunoMusicItem extends SunoMusic {
   image_url: string
+  song_url2?: string
 }
 
 export default function () {
@@ -28,6 +29,7 @@ export default function () {
 
   const musicListData = useMemo(() => {
     return musicList?.reduce?.((prev: SunoMusicItem[], next: SunoMusicItem) => {
+      // song_url2 for historical data
       const { song_url, song_url2, ...props } = next;
       const songId1 = song_url?.match?.(regex)?.[1];
 
