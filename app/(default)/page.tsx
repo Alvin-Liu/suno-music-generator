@@ -7,7 +7,7 @@ import Input from "@/components/input";
 import { Music } from "@/types/music";
 
 export default function () {
-  const [music, setMusic] = useState<Music>();
+  const [music, setMusic] = useState<Music[]>();
 
   return (
     <div className="md:mt-16">
@@ -16,10 +16,12 @@ export default function () {
 
         <div className="flex flex-col mx-auto my-12 flex max-w-lg justify-center">
           <Input setMusic={setMusic} />
+        </div>
 
+        <div className="flex mt-6 mx-auto mt-6 justify-around gap-4">
           {
-            music && (
-              <div className="relative flex w-96 mt-6 mx-auto flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+            music && music.map((music, index) => (
+              <div key={index} className="relative flex w-68 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
                 <div className="p-6">
                   <audio className="mx-auto" controls src={music.song_url} />
                 </div>
@@ -32,7 +34,7 @@ export default function () {
                   }} />
                 </div>
               </div>
-            )
+            ))
           }
         </div>
       </div>

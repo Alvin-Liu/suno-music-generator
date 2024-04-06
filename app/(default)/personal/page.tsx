@@ -30,11 +30,18 @@ export default function () {
     return musicList?.reduce?.((prev: SunoMusicItem[], next: SunoMusicItem) => {
       const { song_url, song_url2, ...props } = next;
       const songId1 = song_url?.match?.(regex)?.[1];
-      const songId2 = song_url2?.match?.(regex)?.[1];
+
+      if (song_url2) {
+        const songId2 = song_url2?.match?.(regex)?.[1];
+
+        return prev.concat([
+          { ...props, song_url, image_url: songId1 ? `https://cdn1.suno.ai/image_${songId1}.png` : '' },
+          { ...props, song_url: song_url2, image_url: songId2 ? `https://cdn1.suno.ai/image_${songId2}.png` : '' },
+        ])
+      }
 
       return prev.concat([
         { ...props, song_url, image_url: songId1 ? `https://cdn1.suno.ai/image_${songId1}.png` : '' },
-        { ...props, song_url: song_url2, image_url: songId2 ? `https://cdn1.suno.ai/image_${songId2}.png` : '' },
       ])
     }, []) as SunoMusicItem[]
   }, [musicList])

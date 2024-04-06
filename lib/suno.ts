@@ -7,7 +7,7 @@ import type { Music } from '@/types/music';
 const BASE_URL = "https://studio-api.suno.ai";
 const CLERK_BASE_URL = 'https://clerk.suno.ai';
 
-class Sono {
+export class Suno {
   private retryTime = 0;
   private songInfo: Pick<Music, 'lyric' | 'song_name'> & { song_ids?: string[]; } = {};
   private currentData?: Record<string, any>;
@@ -61,6 +61,25 @@ class Sono {
     return response.jwt;
   }
 
+  public async generate(prompt: string) {
+    const response = await this.client(
+      `${BASE_URL}/api/generate/v2/`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+        },
+        data: {
+          gpt_description_prompt: prompt,
+          mv: "chirp-v3-0",
+          prompt: "",
+          make_instrumental: false,
+        }
+      }
+    );
+
+    return response?.clips?.map?.((i: { id: string; }) => i.id);
+  }
+
   public async getSongs(prompt: string) {
     const response = await this.client(
       `${BASE_URL}/api/generate/v2/`, {
@@ -87,9 +106,9 @@ class Sono {
         throw new Error("Request timeout");
       }
 
-      const song_info = await this.fetchSongsMetadata(request_ids);
+      const hasSongInfo = await this.fetchSongsMetadata(request_ids);
 
-      if (!song_info) {
+      if (!hasSongInfo) {
         console.log(".", { end: "", flush: true });
       } else {
         break;
@@ -143,10 +162,6 @@ class Sono {
           this.songInfo.lyric = lyric;
           this.songInfo.song_ids = [id1, id2];
 
-          console.log("will sleep 45 and try to download");
-
-          await sleep(45000);
-
           return true;
         }
 
@@ -155,10 +170,6 @@ class Sono {
 
         return false;
       } else {
-        console.log("Will sleep 45s and get the music url");
-
-        await sleep(45000);
-
         const [song_name, lyric] = this.parseLyrics(this.currentData?.[0]);
 
         this.songInfo.song_name = song_name;
@@ -170,7 +181,7 @@ class Sono {
     }
   }
 
-  private parseLyrics(data: Record<string, any>) {
+  public parseLyrics(data: Record<string, any>) {
     const song_name = data.title || "";
     const mt = data.metadata;
 
@@ -199,7 +210,7 @@ export const getSunoClient = async ({ cookie, userAgent }: { cookie?: string; us
     throw new Error("Cookie not found");
   }
 
-  const client = new Sono(sunoCookie, { userAgent });
+  const client = new Suno(sunoCookie, { userAgent });
 
   await client.init();
 

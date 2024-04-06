@@ -15,9 +15,10 @@ import { Music } from "@/types/music";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { fetchEnhanced } from '@/utils/request';
+import { useRequest } from "ahooks";
 
 interface Props {
-  setMusic: (music: Music) => void;
+  setMusic: (music: Music[]) => void;
 }
 
 export default function ({ setMusic }: Props) {
@@ -28,48 +29,93 @@ export default function ({ setMusic }: Props) {
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const router = useRouter();
 
-  const requestGenMusic = async function () {
-    try {
-      const uri = "/api/genMusic";
-
-      setLoading(true);
-      const resp = await fetchEnhanced(uri, {
-        method: "POST",
-        data: {
-          description: description,
-        },
-      });
-
-      const { code, message, data } = resp || {};
-
-      setLoading(false);
-
-      if (code === 401) {
-        toast.error("Please Log In First");
-        router.push("/sign-in");
-        return;
+  const { runAsync: generate, data: ids } = useRequest(async () => {
+    const { code, data } = await fetchEnhanced("/api/music/generate", {
+      method: "POST",
+      data: {
+        description: description,
       }
+    });
 
-      if (resp.message) {
-        if (code !== 0) {
-          toast.error(message);
-          return;
-        }
-
-        if (data) {
-          setMusic(data);
-          setDescription("");
-          toast.success("Gen music success");
-          return;
-        }
-      }
-
-      toast.error("Gen music failed");
-    } catch (e) {
-      console.log("failed: ", e);
-      toast.error("Gen music failed");
+    if (code === 401) {
+      toast.error("Please Log In First");
+      router.push("/sign-in");
+      return;
     }
-  };
+
+    if (code === 0 && data) {
+      return data
+    }
+
+    throw new Error("Gen music failed");
+  }, {
+    manual: true,
+    onSuccess: () => getToken(),
+    onError: () => {
+      toast.error("Gen music failed");
+      setLoading(false);
+    }
+  });
+
+  const { run: getToken, data: token } = useRequest(async () => {
+    const { code, data } = await fetchEnhanced("/api/music/token");
+
+    if (code !== 0) {
+      throw new Error('fetch token failed');
+    }
+
+    return data
+  }, {
+    manual: true,
+    onSuccess: () => {
+      setTimeout(async () => await getFeed(), 100)
+    },
+    onError: () => {
+      toast.error("Gen music failed");
+      setLoading(false);
+    }
+  });
+
+  const { runAsync: getFeed } = useRequest(async () => {
+    const { code, data } = await fetchEnhanced("/api/music/feed", {
+      method: "POST",
+      data: {
+        description: description,
+        ids: ids,
+      },
+      headers: {
+        "X-Authorization": `Bearer ${token}`,
+      }
+    });
+
+    if (code === 0 && data) {
+      return data
+    }
+
+    throw new Error(code);
+  }, {
+    manual: true,
+    onSuccess: (data) => {
+      if (!data?.isFinish) {
+        setTimeout(async () => await getFeed(), Math.min(15000, Math.random() * 2000))
+        return
+      }
+
+      setMusic(data.list)
+      setDescription("");
+      toast.success("Gen music success");
+      setLoading(false);
+    },
+    onError: async (error: any) => {
+      if (error === 'BIZ_UNAUTHORIZED' || error?.code === 'BIZ_UNAUTHORIZED') {
+        getToken()
+        return
+      }
+
+      toast.error("Gen music failed");
+      setLoading(false);
+    }
+  });
 
   const onInputKeydown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.code === "Enter" && !e.shiftKey) {
@@ -92,7 +138,8 @@ export default function ({ setMusic }: Props) {
       return;
     }
 
-    requestGenMusic();
+    setLoading(true);
+    generate();
   };
 
   useEffect(() => {
