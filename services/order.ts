@@ -14,8 +14,9 @@ export const getUserCredits = async (user_email: string): Promise<UserCredits> =
   };
 
   try {
-    const used_credits = await getUserMusicCount(user_email);
-    user_credits.used_credits = used_credits;
+    const musicCount = await getUserMusicCount(user_email);
+    // Suno generates two songs each time. 
+    user_credits.used_credits = Math.ceil(musicCount / 2);
 
     const orders = await getUserOrders(user_email);
     if (orders) {
