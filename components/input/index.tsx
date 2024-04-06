@@ -22,7 +22,7 @@ interface Props {
 }
 
 export default function ({ setMusic }: Props) {
-  const { user } = useContext(AppContext);
+  const { user, fetchUserInfo } = useContext(AppContext);
 
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
@@ -105,6 +105,7 @@ export default function ({ setMusic }: Props) {
       setDescription("");
       toast.success("Gen music success");
       setLoading(false);
+      fetchUserInfo();
     },
     onError: async (error: any) => {
       if (error === 'BIZ_UNAUTHORIZED') {
