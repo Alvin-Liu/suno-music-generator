@@ -31,5 +31,5 @@ CREATE TABLE orders (
     paied_at timestamptz,
     checkout_session_id VARCHAR(255),
     credits INT NOT NULL,
-    paid_order_id VARCHAR(255) UNIQUE NOT NULL
+    paid_order_id VARCHAR(255) UNIQUE
 );
