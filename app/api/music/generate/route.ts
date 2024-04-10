@@ -25,11 +25,11 @@ export async function POST(req: Request) {
 
     const { description } = await req.json();
 
-    if (!description) {
-      return respErr("Please Enter Your Song Description");
+    if (!description || description.trim().length < 1 || description.trim().length > 1200) {
+      return respJson("BIZ_INVALID_PARAMS", "Please Check Your Description");
     }
 
-    const result = await client.generate(description)
+    const result = await client.generate(description);
 
     return respData(result);
   } catch (e: any) {

@@ -5,7 +5,7 @@ import { sleep } from '@/utils';
 import type { Music } from '@/types/music';
 
 const BASE_URL = "https://studio-api.suno.ai";
-const CLERK_BASE_URL = 'https://clerk.suno.ai';
+const CLERK_BASE_URL = 'https://clerk.suno.com';
 
 export class Suno {
   private retryTime = 0;
@@ -30,7 +30,7 @@ export class Suno {
   }
 
   public async init() {
-    const response = await this.client(`${CLERK_BASE_URL}/v1/client?_clerk_js_version=4.70.5`, {
+    const response = await this.client(`${CLERK_BASE_URL}/v1/client?_clerk_js_version=4.72.0-snapshot.vc141245`, {
       method: 'GET',
     })
 
@@ -51,7 +51,7 @@ export class Suno {
     }
 
     const response = await this.client(
-      `${CLERK_BASE_URL}/v1/client/sessions/${this.sid}/tokens/api?_clerk_js_version=4.70.5`, {
+      `${CLERK_BASE_URL}/v1/client/sessions/${this.sid}/tokens?_clerk_js_version=4.72.0-snapshot.vc141245`, {
         method: 'POST'
       }
     );
@@ -61,19 +61,29 @@ export class Suno {
     return response.jwt;
   }
 
-  public async generate(prompt: string) {
+  public async generate(options: string | { title?: string, tags?: string, prompt?: string, continue_at?: string, continue_clip_id?: string }) {
+    const params = typeof options === 'string' ? {
+      gpt_description_prompt: options,
+      mv: "chirp-v3-0",
+      prompt: "",
+      make_instrumental: false,
+    } : {
+      continue_at: options?.continue_at || null,
+      continue_clip_id: options?.continue_clip_id || null,
+      mv: "chirp-v3-0",
+      prompt: options?.prompt || "",
+      gpt_description_prompt: options?.prompt || "",
+      tags: options?.tags ||"",
+      title: options?.title || "",
+    }
+
     const response = await this.client(
       `${BASE_URL}/api/generate/v2/`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${this.token}`,
         },
-        data: {
-          gpt_description_prompt: prompt,
-          mv: "chirp-v3-0",
-          prompt: "",
-          make_instrumental: false,
-        }
+        data: params
       }
     );
 
