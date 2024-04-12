@@ -88,10 +88,11 @@ open `http://localhost:3000` for preview
 - [node-postgres](https://node-postgres.com/)
 - [tailwindcss](https://tailwindcss.com/)
 - [Lemon Squeezy](https://www.lemonsqueezy.com/)
+- [aiwallpaper](https://github.com/all-in-aigc/aiwallpaper)
 
 ## Other Things
 
-You can contact me via the following Twitter link: https://twitter.com/Alvin_Liu_9527. As a newcomer, I sincerely ask for your attention and follow.
+You can contact me via the following Twitter link: [https://twitter.com/Alvin_Liu_9527](https://twitter.com/Alvin_Liu_9527). As a newcomer, I sincerely ask for your attention and follow.
 
 If this project is helpful to you, please consider buying me a coffee. 
 

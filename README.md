@@ -91,11 +91,12 @@ pnpm dev
 - [node-postgres](https://node-postgres.com/)
 - [tailwindcss](https://tailwindcss.com/)
 - [Lemon Squeezy](https://www.lemonsqueezy.com/)
+- [aiwallpaper](https://github.com/all-in-aigc/aiwallpaper)
 
 ## 其他
 
 你可以通过以下 Twitter 链接与我联系：
-https://twitter.com/Alvin_Liu_9527。作为 Twitter 新人，我非常真诚地请求你的关注和支持。
+[https://twitter.com/Alvin_Liu_9527](https://twitter.com/Alvin_Liu_9527) 。作为 Twitter 新人，我非常真诚地请求你的关注和支持。
 
 如果此项目对你有所帮助，请考虑请我喝杯咖啡
 
