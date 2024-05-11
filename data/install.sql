@@ -16,7 +16,7 @@ CREATE TABLE music (
     song_name TEXT,
     song_url TEXT,
     created_at timestamptz,
-    status SMALLINT,
+    status SMALLINT
 );
 
 CREATE TABLE orders (
