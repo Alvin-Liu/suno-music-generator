@@ -96,7 +96,7 @@ pnpm dev
 ## 其他
 
 你可以通过以下 Twitter 链接与我联系：
-[https://twitter.com/Alvin_Liu_9527](https://twitter.com/Alvin_Liu_9527) 。作为 Twitter 新人，我非常真诚地请求你的关注和支持。
+[https://twitter.com/alvinliux](https://twitter.com/alvinliux) 。作为 Twitter 新人，我非常真诚地请求你的关注和支持。
 
 如果此项目对你有所帮助，请考虑请我喝杯咖啡
 

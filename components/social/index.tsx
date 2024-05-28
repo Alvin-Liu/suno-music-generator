@@ -12,7 +12,7 @@ export default function () {
         <BsGithub className="text-lg" />
       </a>
       <a
-        href="https://twitter.com/Alvin_Liu_9527"
+        href="https://twitter.com/alvinliux"
         target="_blank"
         className="mr-6 flex items-center justify-center"
       >

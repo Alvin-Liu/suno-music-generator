@@ -92,7 +92,7 @@ open `http://localhost:3000` for preview
 
 ## Other Things
 
-You can contact me via the following Twitter link: [https://twitter.com/Alvin_Liu_9527](https://twitter.com/Alvin_Liu_9527). As a newcomer, I sincerely ask for your attention and follow.
+You can contact me via the following Twitter link: [https://twitter.com/alvinliux](https://twitter.com/alvinliux). As a newcomer, I sincerely ask for your attention and follow.
 
 If this project is helpful to you, please consider buying me a coffee. 
 
